@@ -158,9 +158,13 @@ function decodeMessage() {
 		output += String.fromCharCode(c);
 	}
 
+	var regex = /\./g;
+	var fileName = document.getElementById('fileSelect').files[0].name;
+	var fileNameWithoutExtension = fileName.substring(0, fileName.search(regex));
 	var saveAs = document.getElementById('saveAs');
 	saveAs.innerHTML = 'Save as...';
 	saveAs.setAttribute('href', `data:application/octet-stream;base64,${btoa(output)}`);
+	saveAs.setAttribute('download', `${fileNameWithoutExtension}.bin`);
 
 	$('.binary-decode textarea').text(output);
 	$('.binary-decode').fadeIn();
